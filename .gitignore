@@ -33,3 +33,4 @@ build/
 .vscode/
 /src/main/resources/static/js/
 /src/main/resources/templates/pages/
+/sport-license-manager/
