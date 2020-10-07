@@ -17,6 +17,12 @@
 <body>
 <jsp:include page="../navbar.jsp" />
 
+<c:if test="${not empty errorMessage}">
+    <div style="color:red">
+            ${errorMessage}
+    </div>
+</c:if>
+
 <sec:authorize access="hasRole('ADMIN')">
 <a href = "/clubs/add">
 <button type="button" class="btn btn-primary" id = "addClubBtn">Add club</button>

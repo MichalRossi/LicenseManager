@@ -10,6 +10,9 @@ import pl.coderslab.commons.AgeCategory;
 import pl.coderslab.mail.EmailService;
 
 import javax.validation.Valid;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -125,8 +128,14 @@ public class ClubController {
                         clubRepository.findClubById(id).getName() +
                         " has been deleted. Deleted club info: " + "\n" +
                         getClubInformation(clubRepository.findClubById(id)));
+            try {
+                clubRepository.deleteById(id);
+            } catch (Exception e){
+                model.addAttribute("errorMessage", "Club can't be deleted - have active coaches and players");
+                model.addAttribute("clubs", clubRepository.findAll());
+                return "club/clubsList";
+            }
 
-        clubRepository.deleteById(id);
         return "redirect:../";
     }
 
